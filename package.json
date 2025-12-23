@@ -1,0 +1,27 @@
+{
+  "name": "i18n-utils",
+  "version": "0.0.1",
+  "description": "Collection of i18n utilities",
+  "license": "MIT",
+  "author": "Volodymyr Chornonoh <chernonog.vova@gmail.com> (https://www.chornonoh-vova.com)",
+  "type": "module",
+  "bin": {
+    "i18n-utils": "./dist/index.js"
+  },
+  "scripts": {
+    "start": "node ./src/index.ts",
+    "build": "tsc",
+    "link": "npm run build && npm link",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@types/debug": "^4.1.12",
+    "@types/node": "^25.0.3",
+    "@types/yargs": "^17.0.35",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "debug": "^4.4.3",
+    "yargs": "^18.0.0"
+  }
+}
