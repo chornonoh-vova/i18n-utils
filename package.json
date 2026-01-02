@@ -11,6 +11,10 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
   },
+  "engines": {
+    "node": ">=24",
+    "npm": ">=11"
+  },
   "type": "module",
   "bin": {
     "i18n-utils": "./dist/index.js"
@@ -19,12 +23,14 @@
     "start": "DEBUG=* node ./src/index.ts",
     "build": "tsc",
     "link": "npm run build && npm link",
+    "release": "release-it",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
     "@types/debug": "^4.1.12",
     "@types/node": "^25.0.3",
     "@types/yargs": "^17.0.35",
+    "release-it": "^19.2.2",
     "typescript": "^5.9.3"
   },
   "dependencies": {
