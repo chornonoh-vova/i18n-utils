@@ -19,6 +19,9 @@
   "bin": {
     "i18n-utils": "./dist/index.js"
   },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "start": "DEBUG=* node ./src/index.ts",
     "build": "tsc",
