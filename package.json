@@ -6,7 +6,7 @@
   "author": "Volodymyr Chornonoh <chernonog.vova@gmail.com> (https://www.chornonoh-vova.com)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/chornonoh-vova/i18n-utils.git"
+    "url": "git+https://github.com/chornonoh-vova/i18n-utils.git"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com"
@@ -17,7 +17,7 @@
   },
   "type": "module",
   "bin": {
-    "i18n-utils": "./dist/index.js"
+    "i18n-utils": "dist/index.js"
   },
   "files": [
     "dist"
