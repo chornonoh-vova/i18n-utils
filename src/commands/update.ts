@@ -9,7 +9,7 @@ import { get, has, set } from "../lib/obj.ts";
 const debug = debugFn("update");
 
 export const updateCommand: CommandModule<{}, UpdaterArgs> = {
-  command: "update <path> -k <key> -v <value>",
+  command: "update <path> [options]",
   aliases: "u",
   describe: "update specified key with new value in translation files",
   builder: (builder) => updaterBuilder(builder),

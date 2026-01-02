@@ -30,12 +30,11 @@ await yargs(hideBin(argv))
   )
   .help()
   .wrap(null)
-  .fail((msg, err, yargs) => {
+  .fail((_msg, err, yargs) => {
     if (err) {
       console.error(`❌ ${err.message}`);
     } else {
-      console.error("Parsing error: " + msg);
-      console.log("\n" + yargs.showHelpOnFail(false).help());
+      console.log(yargs.showHelpOnFail(false).help());
     }
     exit(1);
   }).argv;

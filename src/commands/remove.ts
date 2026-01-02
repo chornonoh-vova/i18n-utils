@@ -9,7 +9,7 @@ import { get, has, remove } from "../lib/obj.ts";
 const debug = debugFn("remove");
 
 export const removeCommand: CommandModule<{}, BaseArgs> = {
-  command: "remove <path> -k <key>",
+  command: "remove <path> [options]",
   aliases: ["r", "rm"],
   describe: "remove the specified key from translation files",
   builder: (builder) => baseBuilder(builder),

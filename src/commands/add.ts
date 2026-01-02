@@ -9,7 +9,7 @@ import { has, set } from "../lib/obj.ts";
 const debug = debugFn("add");
 
 export const addCommand: CommandModule<{}, UpdaterArgs> = {
-  command: "add <path> -k <key> -v <value>",
+  command: "add <path> [options]",
   aliases: "a",
   describe: "add specified key with value to translation files",
   builder: (builder) => updaterBuilder(builder),
