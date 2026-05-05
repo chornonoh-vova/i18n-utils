@@ -27,7 +27,7 @@
     "build": "tsc",
     "link": "npm run build && npm link",
     "release": "release-it",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test 'src/**/*.test.ts'"
   },
   "devDependencies": {
     "@types/debug": "^4.1.12",

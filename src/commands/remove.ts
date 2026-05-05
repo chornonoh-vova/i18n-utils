@@ -1,9 +1,14 @@
-import { glob, readFile, writeFile } from "node:fs/promises";
+import { glob } from "node:fs/promises";
 
 import { type CommandModule } from "yargs";
 import debugFn from "debug";
 
-import { baseBuilder, type BaseArgs } from "./shared.ts";
+import {
+  baseBuilder,
+  readJsonFile,
+  writeJsonFile,
+  type BaseArgs,
+} from "./shared.ts";
 import { get, has, remove } from "../lib/obj.ts";
 
 const debug = debugFn("remove");
@@ -19,9 +24,7 @@ export const removeCommand: CommandModule<{}, BaseArgs> = {
 
     for await (const entry of glob(args.path)) {
       debug("reading file", entry);
-      const translations = JSON.parse(
-        await readFile(entry, { encoding: "utf-8" }),
-      );
+      const translations = await readJsonFile(entry);
 
       if (!has(translations, keyPath)) {
         throw new Error(
@@ -38,10 +41,7 @@ export const removeCommand: CommandModule<{}, BaseArgs> = {
       remove(translations, keyPath);
 
       debug("writing file", entry);
-      await writeFile(
-        entry,
-        JSON.stringify(translations, null, args.indentation),
-      );
+      await writeJsonFile(entry, translations, args.indentation);
 
       count++;
     }

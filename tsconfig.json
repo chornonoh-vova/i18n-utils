@@ -32,6 +32,11 @@
     "noFallthroughCasesInSwitch": true,
     "noPropertyAccessFromIndexSignature": true,
 
+    // Node-native TS execution (load-bearing — Node 24+ runs src/*.ts directly without a transpile step)
+    // Do not remove these as a group — together they ensure source runs as-is AND emits a working dist/.
+    // - rewriteRelativeImportExtensions: require `.ts` extensions in source, rewrite to `.js` on emit
+    // - erasableSyntaxOnly: reject TS syntax Node's stripper can't handle (enums, namespaces, param props)
+    // - verbatimModuleSyntax: keep import/export form 1:1 with source so stripping is safe
     "rewriteRelativeImportExtensions": true,
     "erasableSyntaxOnly": true,
     "verbatimModuleSyntax": true,
