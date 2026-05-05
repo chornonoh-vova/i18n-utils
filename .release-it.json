@@ -14,7 +14,7 @@
     "skipChecks": true
   },
   "hooks": {
-    "after:bump": "npm run build -- --sourceMap false",
+    "after:bump": "npm run build -- --sourceMap false && node dist/index.js --help > /dev/null",
     "after:release": "echo Successfully released ${name} v${version} to npm and GitHub!"
   }
 }

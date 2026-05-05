@@ -1,4 +1,23 @@
+import { readFile, writeFile } from "node:fs/promises";
+import { basename, extname } from "node:path";
+
 import type { Argv } from "yargs";
+
+export function isBase(filename: string, base: string): boolean {
+  return basename(filename, extname(filename)) === base;
+}
+
+export async function readJsonFile(path: string): Promise<unknown> {
+  return JSON.parse(await readFile(path, { encoding: "utf-8" }));
+}
+
+export async function writeJsonFile(
+  path: string,
+  value: unknown,
+  indentation: number,
+): Promise<void> {
+  await writeFile(path, JSON.stringify(value, null, indentation) + "\n");
+}
 
 export type BaseArgs = {
   path: string;

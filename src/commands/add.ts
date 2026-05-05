@@ -1,9 +1,15 @@
-import { glob, readFile, writeFile } from "node:fs/promises";
+import { glob } from "node:fs/promises";
 
 import { type CommandModule } from "yargs";
 import debugFn from "debug";
 
-import { updaterBuilder, type UpdaterArgs } from "./shared.ts";
+import {
+  isBase,
+  readJsonFile,
+  updaterBuilder,
+  writeJsonFile,
+  type UpdaterArgs,
+} from "./shared.ts";
 import { has, set } from "../lib/obj.ts";
 
 const debug = debugFn("add");
@@ -18,13 +24,10 @@ export const addCommand: CommandModule<{}, UpdaterArgs> = {
     const keyPath = args.key.split(".");
 
     for await (const entry of glob(args.path)) {
-      const isBase = entry.includes(args.base);
-      const value = isBase ? args.value : args.prefix + args.value;
+      const value = isBase(entry, args.base) ? args.value : args.prefix + args.value;
 
       debug("reading file", entry);
-      const translations = JSON.parse(
-        await readFile(entry, { encoding: "utf-8" }),
-      );
+      const translations = await readJsonFile(entry);
 
       if (has(translations, keyPath)) {
         throw new Error(
@@ -36,10 +39,7 @@ export const addCommand: CommandModule<{}, UpdaterArgs> = {
       set(translations, keyPath, value);
 
       debug("writing file", entry);
-      await writeFile(
-        entry,
-        JSON.stringify(translations, null, args.indentation) + "\n",
-      );
+      await writeJsonFile(entry, translations, args.indentation);
 
       count++;
     }
