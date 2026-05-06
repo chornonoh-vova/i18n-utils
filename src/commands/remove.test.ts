@@ -73,9 +73,7 @@ describe("remove command", () => {
             indentation: 2,
           }),
         );
-      },
-        /does not exist/,
-      );
+      }, /does not exist/);
     });
   });
 });

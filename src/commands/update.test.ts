@@ -51,11 +51,9 @@ describe("update command", () => {
             base: "en",
             prefix: "*EN* ",
             indentation: 2,
-          })
+          }),
         );
-      },
-        /does not exist/,
-      );
+      }, /does not exist/);
     });
   });
 });

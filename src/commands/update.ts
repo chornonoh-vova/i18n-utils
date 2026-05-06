@@ -24,7 +24,9 @@ export const updateCommand: CommandModule<{}, UpdaterArgs> = {
     const keyPath = args.key.split(".");
 
     for await (const entry of glob(args.path)) {
-      const value = isBase(entry, args.base) ? args.value : args.prefix + args.value;
+      const value = isBase(entry, args.base)
+        ? args.value
+        : args.prefix + args.value;
 
       debug("reading file", entry);
       const translations = await readJsonFile(entry);

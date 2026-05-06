@@ -1,6 +1,9 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 
+import { mkdir } from "node:fs/promises";
+import { join } from "node:path";
+
 import { addCommand } from "./add.ts";
 import {
   buildArgs,
@@ -11,6 +14,36 @@ import {
 } from "./test-utils.ts";
 
 describe("add command", () => {
+  it("treats parent-directory matches as the base language", async (t) => {
+    silence(t);
+    await withWorkDir(async (workDir) => {
+      const enDir = join(workDir, "en");
+      const deDir = join(workDir, "de");
+      await mkdir(enDir);
+      await writeLocale(enDir, "translation.json", {});
+      await mkdir(deDir);
+      await writeLocale(deDir, "translation.json", {});
+
+      await addCommand.handler!(
+        buildArgs({
+          path: "**/translation.json",
+          key: "greeting",
+          value: "Hello",
+          base: "en",
+          prefix: "*EN* ",
+          indentation: 2,
+        }),
+      );
+
+      assert.deepEqual(await readLocale(enDir, "translation.json"), {
+        greeting: "Hello",
+      });
+      assert.deepEqual(await readLocale(deDir, "translation.json"), {
+        greeting: "*EN* Hello",
+      });
+    });
+  });
+
   it("writes the value verbatim into base-language files", async (t) => {
     silence(t);
     await withWorkDir(async (workDir) => {
@@ -75,9 +108,7 @@ describe("add command", () => {
             indentation: 2,
           }),
         );
-      },
-        /already exists/,
-      );
+      }, /already exists/);
     });
   });
 

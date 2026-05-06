@@ -1,10 +1,14 @@
 import { readFile, writeFile } from "node:fs/promises";
-import { basename, extname } from "node:path";
+import { basename, dirname, extname, sep } from "node:path";
 
 import type { Argv } from "yargs";
 
+// Matches both `./locales/en.json` and `./translations/en/translation.json`.
 export function isBase(filename: string, base: string): boolean {
-  return basename(filename, extname(filename)) === base;
+  return (
+    basename(filename, extname(filename)) === base ||
+    dirname(filename).split(sep).includes(base)
+  );
 }
 
 export async function readJsonFile(path: string): Promise<unknown> {

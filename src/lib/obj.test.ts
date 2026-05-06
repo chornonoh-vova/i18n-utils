@@ -159,7 +159,10 @@ describe("obj utils", () => {
     });
 
     it("throws when an intermediate path segment is missing", () => {
-      assert.throws(() => remove({ a: { b: 1 } }, ["a", "x", "y"]), /'a\.x\.y'/);
+      assert.throws(
+        () => remove({ a: { b: 1 } }, ["a", "x", "y"]),
+        /'a\.x\.y'/,
+      );
     });
 
     it("does not treat inherited properties as removable", () => {
